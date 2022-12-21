@@ -125,7 +125,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QAp-z7-hxZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="51" height="49"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-kz-iDf">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-kz-iDf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="ArtistName"/>
@@ -168,6 +168,9 @@
                                                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="$9.99" backgroundImage="PriceButton"/>
+                                                        <connections>
+                                                            <action selector="openInStore" destination="Gl6-7n-5Do" eventType="touchUpInside" id="b0l-E5-kus"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>

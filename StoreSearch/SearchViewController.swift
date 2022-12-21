@@ -16,6 +16,7 @@ class SearchViewController: UIViewController {
   var hasSearched = false
   var isLoading = false
   var dataTask: URLSessionDataTask?
+//  var searchResult: SearchResult?
  
   struct TableView {
     struct CellIdentifiers {
@@ -92,6 +93,10 @@ class SearchViewController: UIViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "ShowDetail" {
       segue.destination.modalPresentationStyle = .overFullScreen
+      let destinationVC = segue.destination as! DetailViewController
+      let indexPath = sender as! IndexPath
+      destinationVC.searchResult = searchResults[indexPath.row]
+     
       
     }
   }
@@ -182,10 +187,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
       let cell = tableView.dequeueReusableCell(
         withIdentifier: TableView.CellIdentifiers.searchResultCell,
         for: indexPath) as! SearchResultCell
+      
       let searchResult = searchResults[indexPath.row]
       cell.nameLabel.text = searchResult.name
       cell.configure(for: searchResult)
-      
+    
       return cell
     }
   }
