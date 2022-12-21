@@ -82,4 +82,6 @@ class SearchResult: Codable, CustomStringConvertible {
   var description: String {
     return "\nResult - Kind: \(kind ?? "None"), Name: \(name), Artist Name: \(artistName ?? "None")"
   }
+  
+  
 }

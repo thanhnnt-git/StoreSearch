@@ -64,8 +64,6 @@ class SearchViewController: UIViewController {
     return url!
   }
 
-
-
   func parse(data: Data) -> [SearchResult] {
     do {
       let decoder = JSONDecoder()
@@ -90,10 +88,20 @@ class SearchViewController: UIViewController {
     alert.addAction(action)
     present(alert, animated: true, completion: nil)
   }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "ShowDetail" {
+      segue.destination.modalPresentationStyle = .overFullScreen
+      
+    }
+  }
 }
 
 // MARK: - Search Bar Delegate
 extension SearchViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    performSearch()
+  }
   func performSearch() {
     if !searchBar.text!.isEmpty {
       searchBar.resignFirstResponder()
@@ -134,8 +142,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
   }
   
-  
-
   func position(for bar: UIBarPositioning) -> UIBarPosition {
     return .topAttached
   }
@@ -168,8 +174,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
       let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
       spinner.startAnimating()
       return cell
-    }
-    if searchResults.count == 0 {
+    } else if searchResults.count == 0 {
       return tableView.dequeueReusableCell(
         withIdentifier: TableView.CellIdentifiers.nothingFoundCell,
         for: indexPath)
@@ -179,14 +184,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         for: indexPath) as! SearchResultCell
       let searchResult = searchResults[indexPath.row]
       cell.nameLabel.text = searchResult.name
-      if searchResult.artist.isEmpty {
-        cell.artistNameLabel.text = "Unknown"
-      } else {
-        cell.artistNameLabel.text = String(
-          format: "%@ (%@)",
-          searchResult.artist,
-          searchResult.type)
-      }
+      cell.configure(for: searchResult)
+      
       return cell
     }
   }
@@ -196,6 +195,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     didSelectRowAt indexPath: IndexPath
   ) {
     tableView.deselectRow(at: indexPath, animated: true)
+    performSegue(withIdentifier: "ShowDetail", sender: indexPath)
   }
   
   func tableView(
